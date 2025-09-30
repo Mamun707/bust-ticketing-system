@@ -1,70 +1,29 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Checkbox } from "@/components/ui/checkbox";
-import { Input } from "@/components/ui/input";
 import { Separator } from "@/components/ui/separator";
 import Search from "@/components/Home/Search";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { boardingPoints, buses, droppingPoints, operators } from "../constants";
+import { useSearchParams } from "next/navigation";
 
 const ResultsPage = () => {
-  // Dummy bus results
-  const buses = [
-    {
-      id: 1,
-      operator: "Shyamoli Paribahan",
-      route: "Dhaka → Chittagong",
-      departure: "01:00 PM",
-      departureDate: "Wed, 1 Oct",
-      departureCity: "Dhaka",
-      arrival: "09:00 PM",
-      arrivalDate: "Wed, 1 Oct",
-      arrivalCity: "Chittagong",
-      duration: "8h 0m",
-      price: 900,
-      discount: 100,
-      seats: 15,
-    },
-    {
-      id: 2,
-      operator: "Shyamoli Paribahan",
-      route: "Dhaka → Chittagong",
-      departure: "11:15 PM",
-      departureDate: "Wed, 1 Oct",
-      departureCity: "Dhaka",
-      arrival: "07:15 AM",
-      arrivalDate: "Thu, 2 Oct",
-      arrivalCity: "Chittagong",
-      duration: "8h 0m",
-      price: 900,
-      discount: 100,
-      seats: 18,
-    },
-    {
-      id: 3,
-      operator: "Evergreen Transport Ltd",
-      route: "Dhaka → Cox’s Bazar",
-      departure: "08:45 PM",
-      departureDate: "Wed, 1 Oct",
-      departureCity: "Dhaka",
-      arrival: "02:00 AM",
-      arrivalDate: "Thu, 2 Oct",
-      arrivalCity: "Cox’s Bazar",
-      duration: "5h 15m",
-      price: 1000,
-      discount: 0,
-      seats: 31,
-    },
-  ];
-
+  const searchParams = useSearchParams();
+  const tripType = searchParams.get("tripType"); // ✅ check from params
 
   return (
     <div className="custom-container py-12">
       <Search customStyle="border" />
       <section className="mt-4 flex gap-8">
         {/* Sidebar Filters */}
-        <aside className="basis-[20%] bg-white rounded-2xl border p-6 space-y-6">
+        <aside className="basis-[20%] bg-white rounded-2xl border p-5 space-y-4">
           <div className="flex justify-between items-center">
             <h3 className="font-semibold text-lg">Filters</h3>
             <Button size="sm" variant="outline">
@@ -75,17 +34,17 @@ const ResultsPage = () => {
 
           {/* Bus Type */}
           <div>
-            <h4 className="text-sm font-medium mb-2">Bus Type</h4>
+            <h4 className="text-sm font-medium mb-4">Bus Type</h4>
             <div className="flex items-center gap-6">
               <div className="flex items-center space-x-2">
-                <Checkbox id="nonac" />
-                <label htmlFor="ac" className="text-sm">
+                <Checkbox id="ac" />
+                <label htmlFor="ac" className="text-sm text-muted">
                   AC
                 </label>
               </div>
               <div className="flex items-center space-x-2">
                 <Checkbox id="nonac" />
-                <label htmlFor="nonac" className="text-sm">
+                <label htmlFor="nonac" className="text-sm text-muted">
                   Non AC
                 </label>
               </div>
@@ -95,46 +54,124 @@ const ResultsPage = () => {
           {/* Operator */}
           <div>
             <h4 className="text-sm font-medium mb-2">Operator</h4>
-            <Input placeholder="Search Operator" />
+            <Select>
+              <SelectTrigger className="w-full h-11">
+                <SelectValue placeholder="Select Operator" />
+              </SelectTrigger>
+              <SelectContent>
+                {operators.map((op, i) => (
+                  <SelectItem key={i} value={op}>
+                    {op}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Boarding Point */}
           <div>
             <h4 className="text-sm font-medium mb-2">Boarding Point</h4>
-            <Input placeholder="Search Boarding" />
+            <Select>
+              <SelectTrigger className="w-full h-11">
+                <SelectValue placeholder="Select Boarding Point" />
+              </SelectTrigger>
+              <SelectContent>
+                {boardingPoints.map((bp, i) => (
+                  <SelectItem key={i} value={bp}>
+                    {bp}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Dropping Point */}
           <div>
             <h4 className="text-sm font-medium mb-2">Dropping Point</h4>
-            <Input placeholder="Search Dropping" />
+            <Select>
+              <SelectTrigger className="w-full h-11">
+                <SelectValue placeholder="Select Dropping Point" />
+              </SelectTrigger>
+              <SelectContent>
+                {droppingPoints.map((dp, i) => (
+                  <SelectItem key={i} value={dp}>
+                    {dp}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
 
           {/* Departure Time */}
           <div>
             <h4 className="text-sm font-medium mb-2">Departure Time</h4>
-            <div className="space-y-2">
-              <Button variant="outline" className="w-full justify-start">
+            <div className="space-y-2 text-muted font-normal">
+              <Button
+                variant="outline"
+                className="w-full justify-start font-normal"
+              >
                 🌅 Early Morning (Before 6 AM)
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button
+                variant="outline"
+                className="w-full justify-start font-normal"
+              >
                 ☀️ Morning (6 AM - 12 PM)
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button
+                variant="outline"
+                className="w-full justify-start font-normal"
+              >
                 🌤️ Afternoon (12 PM - 6 PM)
               </Button>
-              <Button variant="outline" className="w-full justify-start">
+              <Button
+                variant="outline"
+                className="w-full justify-start font-normal"
+              >
                 🌙 Evening (After 6 PM)
               </Button>
             </div>
           </div>
+
+          {/* ✅ Arrival Time Filter (only for round trips) */}
+          {tripType === "round" && (
+            <div>
+              <h4 className="text-sm font-medium mb-2">Return Arrival Time</h4>
+              <div className="space-y-2 text-muted">
+                <Button
+                  variant="outline"
+                  className="w-full justify-start font-normal"
+                >
+                  🌅 Early Morning (Before 6 AM)
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start font-normal"
+                >
+                  ☀️ Morning (6 AM - 12 PM)
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start font-normal"
+                >
+                  🌤️ Afternoon (12 PM - 6 PM)
+                </Button>
+                <Button
+                  variant="outline"
+                  className="w-full justify-start font-normal"
+                >
+                  🌙 Evening (After 6 PM)
+                </Button>
+              </div>
+            </div>
+          )}
         </aside>
 
         {/* Results */}
-        <main className="space-y-6 basis-[80%]">
+        <main className="space-y-4 basis-[80%]">
           <div className="flex justify-between items-center">
             <div>
-              <p>Showing 254 results</p>
+              <p className="text-sm">Showing 254 results</p>
             </div>
             <div className="flex gap-4">
               <Button variant="outline">Low to High</Button>
@@ -146,27 +183,25 @@ const ResultsPage = () => {
           {buses.map((bus) => (
             <div
               key={bus.id}
-              className="p-6 flex gap-4 items-center shadow-none"
+              className="p-6 flex gap-4 items-center shadow-none border rounded-md"
             >
-              <div className="basis-[30%]">
-                <CardHeader className="p-0">
-                  <CardTitle className="text-lg font-medium">
-                    {bus.operator}
-                  </CardTitle>
-                </CardHeader>
-                <CardContent className="p-0 space-y-2">
+              <div className="basis-[25%]">
+                <div className="p-0">
+                  <div className="text-lg font-medium">{bus.operator}</div>
+                </div>
+                <div className="p-0 space-y-2">
                   <p className="text-sm text-gray-600">{bus.route}</p>
                   {bus.discount > 0 && (
                     <p className="text-sm text-red-500">
                       🎉 Get {bus.discount} TK Discount
                     </p>
                   )}
-                </CardContent>
+                </div>
               </div>
 
               {/* Timing + Price */}
-              <div className="basis-[70%] space-y-2 flex gap-4 justify-between items-center">
-                <div className="basis-[60%] flex items-center justify-between px-4">
+              <div className="basis-[75%] space-y-2 flex gap-4 justify-between items-center">
+                <div className="basis-[50%] flex items-center justify-between px-4">
                   {/* Departure */}
                   <div className="text-left">
                     <p className="text-base font-semibold">{bus.departure}</p>
@@ -192,19 +227,22 @@ const ResultsPage = () => {
                   </div>
                 </div>
 
-                <div className="basis-[20%] text-center">
+                <div className="basis-[25%] text-center">
                   <p className="text-lg font-semibold text-primary">
                     ৳{bus.price}
                   </p>
-                </div>
-
-                <div className="basis-[20%]">
-                  <Button className="bg-primary text-white px-8 py-4" size="lg">
-                    Book Ticket
-                  </Button>
                   <p className="text-xs text-gray-500 mt-1 text-center">
                     {bus.seats} Seats Available
                   </p>
+                </div>
+
+                <div className="basis-[25%] flex flex-col gap-2">
+                  <Button className="bg-primary text-white px-8 py-4" size="lg">
+                    Book Ticket
+                  </Button>
+                  <Button className="px-8 py-4" variant="outline" size="lg">
+                    View Details
+                  </Button>
                 </div>
               </div>
             </div>
