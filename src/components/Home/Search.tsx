@@ -1,99 +1,212 @@
-import React from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+"use client";
 
-const Search = () => {
+import React, { useState } from "react";
+import { Button } from "@/components/ui/button";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
+import { SearchIcon } from "lucide-react";
+
+const Search = ({ customStyle = "card-shadow" }: any) => {
+  const [tripType, setTripType] = useState("oneway");
+  const [fromCity, setFromCity] = useState<string | null>(null);
+  const [toCity, setToCity] = useState<string | null>(null);
+  const [departureDate, setDepartureDate] = useState<Date | undefined>();
+  const [returnDate, setReturnDate] = useState<Date | undefined>();
+
+  const cities = [
+    "Dhaka",
+    "Chittagong",
+    "Sylhet",
+    "Khulna",
+    "Rajshahi",
+    "Barisal",
+    "Rangpur",
+    "Cox's Bazar",
+    "Jessore",
+    "Comilla",
+  ];
+
   return (
-    <section className="gradient-bg pb-20">
-      <div className="custom-container pt-12">
-        <div className="text-center mb-12">
-          <h2 className="text-4xl md:text-5xl font-bold mb-4 text-white">
-            Find Your Perfect Journey
-          </h2>
-          <p className="text-xl text-muted-bg">
-            Book bus tickets across the country with ease
-          </p>
+    <div
+      className={`${customStyle} bg-white rounded-2xl p-6 md:p-8 space-y-6`}
+    >
+      {/* Trip Type */}
+      <div className="flex items-center gap-8">
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="radio"
+            name="tripType"
+            value="oneway"
+            checked={tripType === "oneway"}
+            onChange={() => setTripType("oneway")}
+          />
+          One Way
+        </label>
+        <label className="flex items-center gap-2 cursor-pointer">
+          <input
+            type="radio"
+            name="tripType"
+            value="round"
+            checked={tripType === "round"}
+            onChange={() => setTripType("round")}
+          />
+          Round Trip
+        </label>
+      </div>
+
+      {/* Search Form */}
+      <div className="flex flex-wrap gap-4">
+        {/* From City */}
+        <div className="flex-1">
+          <label className="block text-gray-700 font-medium mb-2">From</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full h-12 justify-between">
+                {fromCity || "Select departure city"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0">
+              <Command>
+                <CommandInput placeholder="Select departure city" />
+                <CommandList>
+                  <CommandEmpty>No city found.</CommandEmpty>
+                  <CommandGroup>
+                    {cities.map((city, index) => (
+                      <CommandItem
+                        key={index}
+                        onSelect={() => setFromCity(city)}
+                      >
+                        {city}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
         </div>
 
-        <div className=" bg-white rounded-2xl p-8 card-shadow">
-          <form id="searchForm" className="space-y-6">
-            <div className="grid md:grid-cols-2 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  From
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="fromCity"
-                    placeholder="Enter departure city"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  <span className="absolute right-3 top-3 text-gray-400">
-                    📍
-                  </span>
-                </div>
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  To
-                </label>
-                <div className="relative">
-                  <input
-                    type="text"
-                    id="toCity"
-                    placeholder="Enter destination city"
-                    className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
-                  <span className="absolute right-3 top-3 text-gray-400">
-                    📍
-                  </span>
-                </div>
-              </div>
-            </div>
+        {/* To City */}
+        <div className="flex-1">
+          <label className="block text-gray-700 font-medium mb-2">To</label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full h-12 justify-between">
+                {toCity || "Select destination city"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="p-0">
+              <Command>
+                <CommandInput placeholder="Search city..." />
+                <CommandList>
+                  <CommandEmpty>No city found.</CommandEmpty>
+                  <CommandGroup>
+                    {cities.map((city, index) => (
+                      <CommandItem key={index} onSelect={() => setToCity(city)}>
+                        {city}
+                      </CommandItem>
+                    ))}
+                  </CommandGroup>
+                </CommandList>
+              </Command>
+            </PopoverContent>
+          </Popover>
+        </div>
 
-            <div className="grid md:grid-cols-3 gap-6">
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  Departure Date
-                </label>
-                <input
-                  type="date"
-                  id="departureDate"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  Return Date (Optional)
-                </label>
-                <input
-                  type="date"
-                  id="returnDate"
-                  className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent "
-                />
-              </div>
-              <div>
-                <label className="block text-gray-700 font-medium mb-2">
-                  Passengers
-                </label>
-                <select className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                  <option>1 Passenger</option>
-                  <option>2 Passengers</option>
-                  <option>3 Passengers</option>
-                  <option>4+ Passengers</option>
-                </select>
-              </div>
-            </div>
+        {/* Departure Date */}
+        <div className="flex-1">
+          <label className="block text-gray-700 font-medium mb-2">
+            Departure Date
+          </label>
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="outline" className="w-full h-12 justify-between">
+                {departureDate ? format(departureDate, "PPP") : "Select date"}
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent>
+              <Calendar
+                mode="single"
+                selected={departureDate}
+                onSelect={setDepartureDate}
+              />
+            </PopoverContent>
+          </Popover>
+        </div>
 
-            <button
-              type="submit"
-              className="w-full gradient-bg text-white py-4 rounded-lg font-semibold text-lg hover:opacity-90 transition-opacity"
-            >
-              🔍 Search Buses
-            </button>
-          </form>
+        {/* Return Date (only round trip) */}
+        {tripType === "round" && (
+          <div className="flex-1">
+            <label className="block text-gray-700 font-medium mb-2">
+              Return Date
+            </label>
+            <Popover>
+              <PopoverTrigger asChild>
+                <Button
+                  variant="outline"
+                  className="w-full h-12 justify-between"
+                >
+                  {returnDate ? format(returnDate, "PPP") : "Select date"}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent>
+                <Calendar
+                  mode="single"
+                  selected={returnDate}
+                  onSelect={setReturnDate}
+                />
+              </PopoverContent>
+            </Popover>
+          </div>
+        )}
+
+        {/* Passengers */}
+        <div className="flex-1">
+          <label className="block text-gray-700 font-medium mb-2 ">
+            Passengers
+          </label>
+          <Select>
+            <SelectTrigger className="w-full h-12 border">
+              <SelectValue placeholder="Select passengers" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="1">1 Passenger</SelectItem>
+              <SelectItem value="2">2 Passengers</SelectItem>
+              <SelectItem value="3">3 Passengers</SelectItem>
+              <SelectItem value="4+">4+ Passengers</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
+
+        {/* Search Button */}
+        <div className="basis-[8%]">
+          <div className="w-full h-full gradient-bg flex justify-center items-center text-white rounded-md">
+            <SearchIcon width="40px" height="40px" />
+          </div>
         </div>
       </div>
-    </section>
+    </div>
   );
 };
 

@@ -1,7 +1,7 @@
+import Banner from "@/components/Home/Banner";
 import FlashDeals from "@/components/Home/FlashDeals";
 import FrequentlyTravelled from "@/components/Home/FrequentlyTravelled";
 import PopularRoutes from "@/components/Home/PopularRoutes";
-import Search from "@/components/Home/Search";
 import Steps from "@/components/Home/Steps";
 import WhyChooseUs from "@/components/Home/WhyChooseUs";
 
@@ -66,7 +66,7 @@ export default function Home() {
 
   return (
     <div>
-      <Search />
+      <Banner />
       <FlashDeals />
       <FrequentlyTravelled />
       <PopularRoutes />
