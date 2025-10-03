@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { ChevronDown, ChevronDownIcon, SearchIcon } from "lucide-react";
+import { ChevronDownIcon, SearchIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation"; // ✅
 
 const Search = ({ customStyle = "card-shadow" }: any) => {

@@ -25,9 +25,12 @@ const Header = () => {
             <a href="#" className="hover:text-blue-200 transition-colors">
               Support
             </a>
-            <button className="bg-white  px-4 py-2 rounded-md font-medium text-primary  duration-300 transition-colors cursor-pointer">
-              Sign In
-            </button>
+            <Link href="/signin">
+              {" "}
+              <button className="bg-white  px-4 py-2 rounded-md font-medium text-primary  duration-300 transition-colors cursor-pointer">
+                Sign In
+              </button>
+            </Link>
           </nav>
         </div>
       </div>
