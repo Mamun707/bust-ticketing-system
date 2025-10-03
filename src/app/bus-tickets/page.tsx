@@ -23,121 +23,89 @@ const ResultsPage = () => {
       <Search customStyle="border" />
       <section className="mt-4 flex gap-8">
         {/* Sidebar Filters */}
-        <aside className="basis-[20%] bg-white rounded-2xl border p-5 space-y-4">
-          <div className="flex justify-between items-center">
+        <aside className="basis-[20%] bg-white rounded-2xl border">
+          <div className="flex justify-between items-center px-5 py-4">
             <h3 className="font-semibold text-lg">Filters</h3>
-            <Button size="sm" variant="outline">
+            <Button size="sm" variant="outline" className="text-xs p-1 px-2">
               Reset
             </Button>
           </div>
           <Separator />
-
-          {/* Bus Type */}
-          <div>
-            <h4 className="text-sm font-medium mb-4">Bus Type</h4>
-            <div className="flex items-center gap-6">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="ac" />
-                <label htmlFor="ac" className="text-sm text-muted">
-                  AC
-                </label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox id="nonac" />
-                <label htmlFor="nonac" className="text-sm text-muted">
-                  Non AC
-                </label>
-              </div>
-            </div>
-          </div>
-
-          {/* Operator */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">Operator</h4>
-            <Select>
-              <SelectTrigger className="w-full h-11">
-                <SelectValue placeholder="Select Operator" />
-              </SelectTrigger>
-              <SelectContent>
-                {operators.map((op, i) => (
-                  <SelectItem key={i} value={op}>
-                    {op}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Boarding Point */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">Boarding Point</h4>
-            <Select>
-              <SelectTrigger className="w-full h-11">
-                <SelectValue placeholder="Select Boarding Point" />
-              </SelectTrigger>
-              <SelectContent>
-                {boardingPoints.map((bp, i) => (
-                  <SelectItem key={i} value={bp}>
-                    {bp}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Dropping Point */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">Dropping Point</h4>
-            <Select>
-              <SelectTrigger className="w-full h-11">
-                <SelectValue placeholder="Select Dropping Point" />
-              </SelectTrigger>
-              <SelectContent>
-                {droppingPoints.map((dp, i) => (
-                  <SelectItem key={i} value={dp}>
-                    {dp}
-                  </SelectItem>
-                ))}
-              </SelectContent>
-            </Select>
-          </div>
-
-          {/* Departure Time */}
-          <div>
-            <h4 className="text-sm font-medium mb-2">Departure Time</h4>
-            <div className="space-y-2 text-muted font-normal">
-              <Button
-                variant="outline"
-                className="w-full justify-start font-normal"
-              >
-                🌅 Early Morning (Before 6 AM)
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start font-normal"
-              >
-                ☀️ Morning (6 AM - 12 PM)
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start font-normal"
-              >
-                🌤️ Afternoon (12 PM - 6 PM)
-              </Button>
-              <Button
-                variant="outline"
-                className="w-full justify-start font-normal"
-              >
-                🌙 Evening (After 6 PM)
-              </Button>
-            </div>
-          </div>
-
-          {/* ✅ Arrival Time Filter (only for round trips) */}
-          {tripType === "round" && (
+          <div className="px-5 py-4 space-y-4">
+            {/* Bus Type */}
             <div>
-              <h4 className="text-sm font-medium mb-2">Return Arrival Time</h4>
-              <div className="space-y-2 text-muted">
+              <h4 className="text-sm font-medium mb-4">Bus Type</h4>
+              <div className="flex items-center gap-6">
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="ac" />
+                  <label htmlFor="ac" className="text-sm text-muted">
+                    AC
+                  </label>
+                </div>
+                <div className="flex items-center space-x-2">
+                  <Checkbox id="nonac" />
+                  <label htmlFor="nonac" className="text-sm text-muted">
+                    Non AC
+                  </label>
+                </div>
+              </div>
+            </div>
+
+            {/* Operator */}
+            <div>
+              <h4 className="text-sm font-medium mb-2">Operator</h4>
+              <Select>
+                <SelectTrigger className="w-full h-11">
+                  <SelectValue placeholder="Select Operator" />
+                </SelectTrigger>
+                <SelectContent>
+                  {operators.map((op, i) => (
+                    <SelectItem key={i} value={op}>
+                      {op}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Boarding Point */}
+            <div>
+              <h4 className="text-sm font-medium mb-2">Boarding Point</h4>
+              <Select>
+                <SelectTrigger className="w-full h-11">
+                  <SelectValue placeholder="Select Boarding Point" />
+                </SelectTrigger>
+                <SelectContent>
+                  {boardingPoints.map((bp, i) => (
+                    <SelectItem key={i} value={bp}>
+                      {bp}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Dropping Point */}
+            <div>
+              <h4 className="text-sm font-medium mb-2">Dropping Point</h4>
+              <Select>
+                <SelectTrigger className="w-full h-11">
+                  <SelectValue placeholder="Select Dropping Point" />
+                </SelectTrigger>
+                <SelectContent>
+                  {droppingPoints.map((dp, i) => (
+                    <SelectItem key={i} value={dp}>
+                      {dp}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Departure Time */}
+            <div>
+              <h4 className="text-sm font-medium mb-2">Departure Time</h4>
+              <div className="space-y-2 text-muted font-normal">
                 <Button
                   variant="outline"
                   className="w-full justify-start font-normal"
@@ -164,14 +132,49 @@ const ResultsPage = () => {
                 </Button>
               </div>
             </div>
-          )}
+
+            {/* ✅ Arrival Time Filter (only for round trips) */}
+            {tripType === "round" && (
+              <div>
+                <h4 className="text-sm font-medium mb-2">
+                  Return Arrival Time
+                </h4>
+                <div className="space-y-2 text-muted">
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start font-normal"
+                  >
+                    🌅 Early Morning (Before 6 AM)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start font-normal"
+                  >
+                    ☀️ Morning (6 AM - 12 PM)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start font-normal"
+                  >
+                    🌤️ Afternoon (12 PM - 6 PM)
+                  </Button>
+                  <Button
+                    variant="outline"
+                    className="w-full justify-start font-normal"
+                  >
+                    🌙 Evening (After 6 PM)
+                  </Button>
+                </div>
+              </div>
+            )}
+          </div>
         </aside>
 
         {/* Results */}
         <main className="space-y-4 basis-[80%]">
           <div className="flex justify-between items-center">
             <div>
-              <p className="text-sm">Showing 254 results</p>
+              <p className="text-sm font-medium">Showing 254 results</p>
             </div>
             <div className="flex gap-4">
               <Button variant="outline">Low to High</Button>
@@ -204,9 +207,15 @@ const ResultsPage = () => {
                 <div className="basis-[50%] flex items-center justify-between px-4">
                   {/* Departure */}
                   <div className="text-left">
-                    <p className="text-base font-semibold">{bus.departure}</p>
-                    <p className="text-xs text-gray-500">{bus.departureDate}</p>
-                    <p className="text-xs text-gray-500">{bus.departureCity}</p>
+                    <p className="text-base font-semibold  whitespace-nowrap">
+                      {bus.departure}
+                    </p>
+                    <p className="text-xs text-gray-500 text-right">
+                      {bus.departureDate}
+                    </p>
+                    <p className="text-xs text-gray-500 text-right">
+                      {bus.departureCity}
+                    </p>
                   </div>
 
                   {/* Duration with line */}
@@ -221,9 +230,15 @@ const ResultsPage = () => {
 
                   {/* Arrival */}
                   <div className="text-right">
-                    <p className="text-base font-semibold">{bus.arrival}</p>
-                    <p className="text-xs text-gray-500">{bus.arrivalDate}</p>
-                    <p className="text-xs text-gray-500">{bus.arrivalCity}</p>
+                    <p className="text-base font-semibold whitespace-nowrap">
+                      {bus.arrival}
+                    </p>
+                    <p className="text-xs text-gray-500 text-right">
+                      {bus.arrivalDate}
+                    </p>
+                    <p className="text-xs text-gray-500 text-right">
+                      {bus.arrivalCity}
+                    </p>
                   </div>
                 </div>
 

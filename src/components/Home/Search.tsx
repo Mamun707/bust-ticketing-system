@@ -25,7 +25,7 @@ import {
 } from "@/components/ui/select";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
-import { SearchIcon } from "lucide-react";
+import { ChevronDown, ChevronDownIcon, SearchIcon } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation"; // ✅
 
 const Search = ({ customStyle = "card-shadow" }: any) => {
@@ -116,8 +116,12 @@ const Search = ({ customStyle = "card-shadow" }: any) => {
           <label className="block text-gray-700 font-medium mb-2">From</label>
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full h-12 justify-between">
-                {fromCity || "Select departure city"}
+              <Button
+                variant="outline"
+                className="w-full h-12 justify-between hover:bg-transparent hover:text-black"
+              >
+                {fromCity || "Select departure city"}{" "}
+                <ChevronDownIcon className="size-4 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="p-0">
@@ -146,8 +150,12 @@ const Search = ({ customStyle = "card-shadow" }: any) => {
           <label className="block text-gray-700 font-medium mb-2">To</label>
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full h-12 justify-between">
-                {toCity || "Select destination city"}
+              <Button
+                variant="outline"
+                className="w-full h-12 justify-between hover:bg-transparent hover:text-black"
+              >
+                {toCity || "Select destination city"}{" "}
+                <ChevronDownIcon className="size-4 opacity-50" />
               </Button>
             </PopoverTrigger>
             <PopoverContent className="p-0">
@@ -175,7 +183,10 @@ const Search = ({ customStyle = "card-shadow" }: any) => {
           </label>
           <Popover>
             <PopoverTrigger asChild>
-              <Button variant="outline" className="w-full h-12 justify-between">
+              <Button
+                variant="outline"
+                className="w-full h-12 justify-between hover:bg-transparent hover:text-black"
+              >
                 {departureDate ? format(departureDate, "PPP") : "Select date"}
               </Button>
             </PopoverTrigger>
@@ -199,7 +210,7 @@ const Search = ({ customStyle = "card-shadow" }: any) => {
               <PopoverTrigger asChild>
                 <Button
                   variant="outline"
-                  className="w-full h-12 justify-between"
+                  className="w-full h-12 justify-between hover:bg-transparent hover:text-black"
                 >
                   {returnDate ? format(returnDate, "PPP") : "Select date"}
                 </Button>
