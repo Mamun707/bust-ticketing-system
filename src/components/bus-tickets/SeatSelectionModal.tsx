@@ -12,6 +12,7 @@ import {
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import Seats from "./Seats";
+import TripDetailsTab from "./TripDetails";
 
 export default function SeatSelectionSheet({ bus }: any) {
   const tabs = [
@@ -40,7 +41,7 @@ export default function SeatSelectionSheet({ bus }: any) {
           <SheetTitle className="text-white">Select Seats</SheetTitle>
         </SheetHeader>
 
-        <div className="flex border-b overflow-x-auto">
+        <div className="flex justify-between border-b overflow-x-auto border-primary">
           {tabs.map((tab) => (
             <button
               key={tab.key}
@@ -56,8 +57,13 @@ export default function SeatSelectionSheet({ bus }: any) {
             </button>
           ))}
         </div>
-        {activeTab === "seats" ? <Seats bus={bus} /> : ""}
-
+        {activeTab === "seats" ? (
+          <Seats bus={bus} />
+        ) : activeTab === "trip-details" ? (
+          <TripDetailsTab />
+        ) : (
+          ""
+        )}
       </SheetContent>
     </Sheet>
   );

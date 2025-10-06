@@ -30,7 +30,7 @@ const Seats = ({ bus }: any) => {
   return (
     <>
       {/* Scrollable Content */}
-      <div className="flex-1 overflow-y-auto px-4 v">
+      <div className="flex-1 overflow-y-auto px-8">
         {/* Bus Info */}
         <div>
           <h3 className="text-lg font-semibold">{bus.operator}</h3>
