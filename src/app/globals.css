@@ -175,7 +175,7 @@
     -ms-overflow-style: none; /* IE and Edge */
     scrollbar-width: none; /* Firefox */
   }
-  @media screen and (max-width: 1305px) {
+  @media screen and (max-width: 1305px) {                    
     .custom-container {
       padding-left: 16px;
       padding-right: 16px;

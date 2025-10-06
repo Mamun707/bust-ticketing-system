@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/select";
 import { boardingPoints, buses, droppingPoints, operators } from "../constants";
 import { useSearchParams } from "next/navigation";
+import SeatSelectionModal from "@/components/bus-tickets/SeatSelectionModal";
 
 const ResultsPage = () => {
   const searchParams = useSearchParams();
@@ -252,9 +253,9 @@ const ResultsPage = () => {
                 </div>
 
                 <div className="basis-[25%] flex flex-col gap-2">
-                  <Button className="bg-primary text-white px-8 py-4" size="lg">
-                    Book Ticket
-                  </Button>
+                  {/* Instead of <Button>Book Ticket</Button> */}
+                  <SeatSelectionModal bus={bus} />
+
                   <Button className="px-8 py-4" variant="outline" size="lg">
                     View Details
                   </Button>
